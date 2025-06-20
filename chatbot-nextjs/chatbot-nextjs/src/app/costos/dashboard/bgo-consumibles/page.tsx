@@ -2,11 +2,10 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getBGO, getConsumibles, getReactivos, getCuantificaciones, getBGOConsumibles, createBGOConsumible, updateBGOConsumible, deleteBGOConsumible } from "../api-costos";
-import { Pagination, Button, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem } from "@mui/material";
+import { Button, Table, TableHead, TableRow, TableCell, TableBody, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Select, MenuItem } from "@mui/material";
 import { PlusIcon, TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
 import Search from "@/app/costos/ui/search"; // Componente de búsqueda
 import { inter } from '@/app/costos/ui/fonts';
-
 
 interface BGOConsumible {
     id?: number;
@@ -103,7 +102,7 @@ export default function BGOConsumiblePage() {
         const newBGOConsumible: BGOConsumible = {
             bgo: selectedBGO,
             cantidad: Number(cantidad),
-            costo: 0, // El backend calculará el costo
+            costo: 0,
             consumible: selectedMaterial.type === "consumible" ? selectedMaterial.id : null,
             reactivo: selectedMaterial.type === "reactivo" ? selectedMaterial.id : null,
             cuantificacion: selectedMaterial.type === "cuantificacion" ? selectedMaterial.id : null
@@ -124,104 +123,99 @@ export default function BGOConsumiblePage() {
     };
 
     const getMaterialList = () => {
-        switch (selectedMaterial.type) {
-            case "consumible":
-                return consumibles;
-            case "reactivo":
-                return reactivos;
-            case "cuantificacion":
-                return cuantificaciones;
-            default:
-                return [];
-        }
-    };
+            switch (selectedMaterial.type) {
+                case "consumible":
+                    return consumibles;
+                case "reactivo":
+                    return reactivos;
+                case "cuantificacion":
+                    return cuantificaciones;
+                default:
+                    return [];
+            }
+        };
 
     return (
-        <div className="ml-20 md:ml-1 p-4 md:p-2 mx-auto transition-all duration-300">
-            <div className="w-full">
-                <div className="flex w-full items-center justify-between">
-                    <h1 className={`${inter.className} text-2xl`}>Gestión de BGOConsumibles</h1>
-                </div>
-                <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                    <Search placeholder="Buscar..." onChange={(e) => setSearchTerm(e.target.value)} />
-                    <Button variant="contained" color="primary" onClick={handleOpen}>
-                        <PlusIcon className="h-5 md:ml-4" />
-                        Agregar
-                    </Button>
-                </div>
-
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Buffer/Gel/Oligo</TableCell>
-                            <TableCell>Material</TableCell>
-                            <TableCell>Cantidad</TableCell>
-                            <TableCell>Costo</TableCell>
-                            <TableCell>Acciones</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {bgoConsumibles.map((bc) => (
-                            <TableRow key={bc.id}>
-                                <TableCell>{bc.id}</TableCell>
-                                <TableCell>{bc.bgo}</TableCell>
-                                <TableCell>{bc.consumible ? "Consumible" : bc.reactivo ? "Reactivo" : bc.cuantificacion ? "Cuantificación" : "N/A"}</TableCell>
-                                <TableCell>{bc.cantidad}</TableCell>
-                                <TableCell>${bc.costo}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-
-                <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>{editando ? "Editar Material del BGOConsumible" : "Agregar Material a BGOConsumible"}</DialogTitle>
-                    <DialogContent>
-                        {/* Selección de Buffer/Gel/Oligo */}
-                        <Select fullWidth value={selectedBGO} onChange={(e) => setSelectedBGO(e.target.value === "" ? "" : Number(e.target.value))}>
-                            <MenuItem value="">Seleccionar Buffer/Gel/Oligo</MenuItem>
-                            {buffersGelOligo.map((bgo) => (
-                                <MenuItem key={bgo.id} value={bgo.id}>{bgo.nombre}</MenuItem>
-                            ))}
-                        </Select>
-
-                        {/* Selección del Tipo de Material */}
-                        <Select fullWidth value={selectedMaterial.type} onChange={(e) => setSelectedMaterial({ type: e.target.value, id: "" })}>
-                            <MenuItem value="">Seleccionar Tipo de Material</MenuItem>
-                            <MenuItem value="consumible">Consumible</MenuItem>
-                            <MenuItem value="reactivo">Reactivo</MenuItem>
-                            <MenuItem value="cuantificacion">Cuantificación</MenuItem>
-                        </Select>
-
-                        {/* Selección del Material Específico */}
-                        <Select
-                            fullWidth
-                            value={selectedMaterial.id}
-                            onChange={(e) =>
-                                setSelectedMaterial({ ...selectedMaterial, id: e.target.value === "" ? "" : Number(e.target.value) })
-                            }
-                        >
-                            <MenuItem value="">Seleccionar Material</MenuItem>
-                            {getMaterialList().map((m) => (
-                                <MenuItem key={m.id} value={m.id}>{m.nombre}</MenuItem>
-                            ))}
-                        </Select>
-
-                        {/* Cantidad */}
-                        <TextField fullWidth type="number" label="Cantidad" value={cantidad} onChange={(e) => setCantidad(Number(e.target.value))} />
-
-                        {/* Costo (calculado por el backend) */}
-                        <TextField fullWidth type="number" label="Costo" value={costo} disabled />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Cancelar</Button>
-                        <Button onClick={handleSubmit} variant="contained" color="primary">
-                            {editando ? "Actualizar" : "Guardar"}
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-
+        <div className="p-4 mx-auto">
+            <div className="flex justify-between">
+                <h1 className={`${inter.className} text-2xl`}>Gestión de BGOConsumibles</h1>
+                <Button variant="contained" color="primary" onClick={handleOpen}>
+                    <PlusIcon className="h-5" />
+                    Agregar
+                </Button>
             </div>
+
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Buffer/Gel/Oligo</TableCell>
+                        <TableCell>Material</TableCell>
+                        <TableCell>Cantidad</TableCell>
+                        <TableCell>Costo</TableCell>
+                        <TableCell>Acciones</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {bgoConsumibles.map((bc) => (
+                        <TableRow key={bc.id}>
+                            <TableCell>{bc.id}</TableCell>
+                            <TableCell>{buffersGelOligo.find(bgo => bgo.id === bc.bgo)?.nombre || "Desconocido"}</TableCell>
+                            <TableCell>{consumibles.find(m => m.id === bc.consumible)?.nombre || reactivos.find(m => m.id === bc.reactivo)?.nombre || cuantificaciones.find(m => m.id === bc.cuantificacion)?.nombre || "Desconocido"}</TableCell>
+                            <TableCell>{bc.cantidad}</TableCell>
+                            <TableCell>${Number(bc.costo).toFixed(2)}</TableCell>
+                            <TableCell>
+                                <Button onClick={() => handleEdit(bc)}><PencilIcon className="h-5" /></Button>
+                                <Button onClick={() => deleteMutation.mutate(bc.id!)}><TrashIcon className="h-5 text-red-500" /></Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>{editando ? "Editar Material del BGOConsumible" : "Agregar Material a BGOConsumible"}</DialogTitle>
+                <DialogContent>
+                    {/* Selección de Buffer/Gel/Oligo */}
+                    <Select fullWidth value={selectedBGO} onChange={(e) => setSelectedBGO(Number(e.target.value) || "")}>
+                        <MenuItem value="">Seleccionar Buffer/Gel/Oligo</MenuItem>
+                        {buffersGelOligo.map((bgo) => (
+                            <MenuItem key={bgo.id} value={bgo.id}>{bgo.nombre}</MenuItem>
+                        ))}
+                    </Select>
+
+                    {/* Selección del Tipo de Material */}
+                    <Select fullWidth value={selectedMaterial.type} onChange={(e) => setSelectedMaterial({ type: e.target.value, id: "" })}>
+                        <MenuItem value="">Seleccionar Tipo de Material</MenuItem>
+                        <MenuItem value="consumible">Consumible</MenuItem>
+                        <MenuItem value="reactivo">Reactivo</MenuItem>
+                        <MenuItem value="cuantificacion">Cuantificación</MenuItem>
+                    </Select>
+
+                    {/* Selección del Material Específico */}
+                    <Select
+                        fullWidth
+                        value={selectedMaterial.id}
+                        onChange={(e) => setSelectedMaterial({ ...selectedMaterial, id: Number(e.target.value) || "" })}
+                    >
+                        <MenuItem value="">Seleccionar Material</MenuItem>
+                        {getMaterialList().map((m) => (
+                            <MenuItem key={m.id} value={m.id}>{m.nombre}</MenuItem>
+                        ))}
+                    </Select>
+
+                    {/* Cantidad */}
+                    <TextField fullWidth type="number" label="Cantidad" value={cantidad} onChange={(e) => setCantidad(Number(e.target.value))} />
+
+                    {/* Costo (informativo) */}
+                    <TextField fullWidth type="text" label="Costo (calculado automáticamente)" value={Number(costo).toFixed(2)} disabled />
+
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="secondary">Cancelar</Button>
+                    <Button onClick={handleSubmit} color="primary">{editando ? "Actualizar" : "Guardar"}</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

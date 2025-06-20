@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const ruta_genomica_metagenomica = require("../subarboles/rutaGenomicaMetagenomica");
 const { pregunta, siguientes_pasos } = require("..");
 
 const arbolDecisiones = {

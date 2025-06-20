@@ -59,11 +59,8 @@ export default function Navbar() {
                         <Link href='/calculadora'>
                             <Button>Usar calculadora</Button>
                         </Link>
-                        <Link href='/costos/login'>
+                        <Link href='/login'>
                             <Button variant="outlined">Iniciar sesión</Button>
-                        </Link>
-                        <Link href='/costos/registro'>
-                            <Button variant="contained">Regístrate</Button>
                         </Link>
                     </>
                 )}

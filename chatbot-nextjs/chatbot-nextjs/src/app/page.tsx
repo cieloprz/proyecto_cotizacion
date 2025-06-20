@@ -12,14 +12,9 @@ export default function Page() {
           <p
             className={`${inter.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
-            <strong>Bienvenido al modulo de gestion de costos.</strong> Para empezar, por favor, inicia sesión o {' '}
-            <a href="https://nextjs.org/learn/" className="text-blue-500">
-              Crea una cuenta
-            </a>
-            .
-          </p>
+            <strong>Bienvenido al modulo de gestion de costos.</strong> Para empezar, por favor, inicia sesión.</p>
           <Link
-            href="/costos/login"
+            href="/login"
             className="flex items-center gap-5 self-start rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 md:text-base"
           >
             <span>Inicia sesión</span> <ArrowRightIcon className="w-5 md:w-6" />
