@@ -33,7 +33,7 @@ export default function Formulario() {
 
   // Obtiene el árbol de decisiones
   useEffect(() => {
-    fetch("http://localhost:5000/api/arbol")
+    fetch("http://132.248.32.226:5000/api/arbol")
       .then((r) => r.json())
       .then((data) => {
         const inicio = data.inicio;
