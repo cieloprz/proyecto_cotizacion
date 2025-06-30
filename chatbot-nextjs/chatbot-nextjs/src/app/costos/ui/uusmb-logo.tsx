@@ -1,4 +1,3 @@
-import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { inter } from '@/app/costos/ui/fonts';
 import Image from 'next/image';
 

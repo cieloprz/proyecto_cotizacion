@@ -1,4 +1,3 @@
-import UUSMBLogo from '@/app/costos/ui/uusmb-logo';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { inter } from '@/app/costos/ui/fonts';

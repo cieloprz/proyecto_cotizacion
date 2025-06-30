@@ -43,7 +43,7 @@ interface NotificationState {
 export default function ReactivoPage() {
     const queryClient = useQueryClient();
     const { data: reactivos = [], error, isLoading } = useQuery({ queryKey: ["reactivos"], queryFn: getReactivos });
-    const { data: plataformas = [], error: plataformasError } = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
+    const { data: plataformas = [] } = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
 
     const createMutation = useMutation({
         mutationFn: (data: Reactivo) => createReactivo(data),
@@ -96,6 +96,7 @@ export default function ReactivoPage() {
             setNotification({ open: true, message: "Reactivo guardado correctamente.", type: "success" });
             handleClose();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar el reactivo.", type: "error" });
         }
     };
@@ -105,6 +106,7 @@ export default function ReactivoPage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Reactivo eliminado correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar el reactivo.", type: "error" });
         }
     };

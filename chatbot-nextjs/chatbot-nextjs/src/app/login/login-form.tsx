@@ -51,6 +51,7 @@ export default function LoginForm() {
         setError(data.detail || 'Error al iniciar sesión');
       }
     } catch (err) {
+      console.error(err);
       setError('Ocurrió un error de red. Intenta más tarde.');
     } finally {
       setLoading(false);

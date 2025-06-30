@@ -84,6 +84,7 @@ export default function CuantificacionesPage() {
             setNotification({ open: true, message: "Cuantificación guardada correctamente.", type: "success" });
             handleClose();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar la cuantificación.", type: "error" });
         }
     };
@@ -93,6 +94,7 @@ export default function CuantificacionesPage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Cuantificación eliminada correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar la cuantificación.", type: "error" });
         }
     };

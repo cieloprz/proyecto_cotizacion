@@ -37,7 +37,7 @@ interface NotificationState {
 export default function ConsumiblePage() {
     const queryClient = useQueryClient();
     const { data: consumibles = [], error, isLoading } = useQuery({ queryKey: ["consumibles"], queryFn: getConsumibles });
-    const { data: plataformas = [], error: plataformasError } = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
+    const { data: plataformas = []} = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
 
     const createMutation = useMutation({
         mutationFn: (data: Consumible) => createConsumible(data),
@@ -85,6 +85,7 @@ export default function ConsumiblePage() {
             queryClient.invalidateQueries({ queryKey: ["consumibles"] });
 
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar el consumible.", type: "error" });
         }
     };
@@ -94,6 +95,7 @@ export default function ConsumiblePage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Consumible eliminado correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar el consumible.", type: "error" });
         }
     };

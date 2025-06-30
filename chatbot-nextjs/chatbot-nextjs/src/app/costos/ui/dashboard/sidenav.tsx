@@ -1,12 +1,10 @@
 'use client'; // asegúrate de que esté marcado como componente del cliente
 
-import Link from 'next/link';
 import NavLinks from '@/app/costos/ui/dashboard/nav-links';
-import UUSMBLogo from '@/app/costos/ui/uusmb-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/app/costos/ui/dashboard/logout'; // <-- importas la acción
 
-export default function SideNav({ closeMenu }: { closeMenu: () => void }) {
+export default function SideNav() {
   return (
     <div className="fixed h-full flex-col px-3 py-6 md:px-2 w-20 md:w-64 transition-all duration-300">
       <div className="flex grow flex-col justify-between space-y-2">

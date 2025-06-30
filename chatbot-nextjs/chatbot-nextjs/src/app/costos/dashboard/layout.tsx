@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     } else {
       setCheckingAuth(false);
     }
-  }, [user]);
+  }, [user, router]);
 
   if (checkingAuth) return <Loader />;
 

@@ -70,6 +70,7 @@ export default function PlataformaCambiosPage() {
             setNotification({ open: true, message: "Plataforma agregada correctamente.", type: "success" });
             handleClosePlataforma();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al agregar plataforma.", type: "error" });
         }
     };
@@ -80,6 +81,7 @@ export default function PlataformaCambiosPage() {
             setNotification({ open: true, message: "Cambio registrado correctamente.", type: "success" });
             handleCloseCambio();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al registrar cambio.", type: "error" });
         }
     };

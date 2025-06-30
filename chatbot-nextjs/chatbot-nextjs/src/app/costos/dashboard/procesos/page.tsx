@@ -89,6 +89,7 @@ export default function ProcesosPage() {
             setNotification({ open: true, message: "Proceso guardado correctamente.", type: "success" });
             handleClose();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar el proceso.", type: "error" });
         }
     };
@@ -98,6 +99,7 @@ export default function ProcesosPage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Proceso eliminado correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar el proceso.", type: "error" });
         }
     };

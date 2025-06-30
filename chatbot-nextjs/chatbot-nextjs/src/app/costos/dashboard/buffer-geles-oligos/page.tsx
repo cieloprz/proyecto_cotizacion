@@ -31,7 +31,7 @@ interface NotificationState {
 export default function BufferGelOligoPage() {
     const queryClient = useQueryClient();
     const { data: buffersGelOligo = [], error, isLoading } = useQuery({ queryKey: ["buffersGelOligo"], queryFn: getBGO });
-    const { data: plataformas = [], error: plataformasError } = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
+    const { data: plataformas = [] } = useQuery({ queryKey: ["plataformas"], queryFn: getPlataformas });
 
     const createMutation = useMutation({
         mutationFn: (data: BufferGelOligo) => createBGO({ nombre: data.nombre, plataforma: data.plataforma }),
@@ -84,6 +84,7 @@ export default function BufferGelOligoPage() {
             queryClient.invalidateQueries({ queryKey: ["buffersGelOligo"] });
 
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar Buffer/Gel/Oligo.", type: "error" });
         }
     };
@@ -93,6 +94,7 @@ export default function BufferGelOligoPage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Buffer/Gel/Oligo eliminado correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar Buffer/Gel/Oligo.", type: "error" });
         }
     };

@@ -84,6 +84,7 @@ export default function ServiciosPage() {
             setNotification({ open: true, message: "Servicio guardado correctamente.", type: "success" });
             handleClose();
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al guardar el servicio.", type: "error" });
         }
     };
@@ -93,6 +94,7 @@ export default function ServiciosPage() {
             await deleteMutation.mutateAsync(id);
             setNotification({ open: true, message: "Servicio eliminado correctamente.", type: "success" });
         } catch (error) {
+            console.error(error);
             setNotification({ open: true, message: "Error al eliminar el servicio.", type: "error" });
         }
     };
