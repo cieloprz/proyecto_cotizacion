@@ -58,7 +58,7 @@ export default function CuantiConsPage() {
     const [selectedMaterial, setSelectedMaterial] = useState<{ type: string; id: number | "" }>({ type: "", id: "" });
     const [cantidad, setCantidad] = useState(0);
     const [costo, setCosto] = useState(0);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [, setSearchTerm] = useState("");
 
     const handleOpen = () => {
         setEditando(false);

@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 export default function Navbar() {
     const pathname = usePathname();
     const [isMounted, setIsMounted] = useState(false);
-    const [auth, setAuth] = useState(true);
+    const [auth] = useState(true);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [menuOpen, setMenuOpen] = useState(false);
 
