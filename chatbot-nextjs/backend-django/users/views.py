@@ -18,3 +18,12 @@ class LoginAPIView(APIView):
                 'email': user.email,
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# users/views.py
+
+from rest_framework import generics
+from .serializers import RegisterSerializer
+
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
